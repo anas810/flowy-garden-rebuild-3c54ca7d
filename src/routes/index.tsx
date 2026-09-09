@@ -4,6 +4,7 @@ import { BankCanvas } from "@/components/BankCanvas";
 import { IssuanceRate } from "@/components/IssuanceRate";
 import { FeeRouting } from "@/components/FeeRouting";
 import { Licenses } from "@/components/Licenses";
+import { Exits } from "@/components/Exits";
 
 export const Route = createFileRoute("/")({
   head: () => ({
