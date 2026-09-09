@@ -10,104 +10,121 @@ export function Licenses({ state }: { state: State }) {
       aria-hidden="true"
     >
       <span className="label block text-center text-[10px] text-muted-foreground">
-        Exits
+        Licenses
       </span>
 
       <div className="relative mt-4 flex h-28 flex-col items-center justify-center">
-        <div className="relative flex h-20 w-20 items-center justify-center">
-          {/* door / exit icon */}
+        {/* paper license + price tag */}
+        <div className="relative flex h-16 items-center justify-center">
+          {/* paper license */}
           <svg
-            viewBox="0 0 64 72"
-            className="h-16 w-14"
+            viewBox="0 0 40 48"
+            className="h-10 w-8"
             fill="none"
             stroke={accent}
-            strokeWidth="2"
+            strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            {/* door frame */}
-            <rect x="10" y="8" width="44" height="56" rx="2" />
-            {/* open door slab */}
-            <path d="M18 14 L46 14 L42 58 L14 58 Z" opacity={0.35} />
-            {/* door handle */}
-            <circle cx="40" cy="36" r="2.5" fill={accent} stroke="none" />
-            {/* arrow pointing out */}
-            <path d="M28 36 L20 36 M24 32 L20 36 L24 40" />
+            <rect x="6" y="4" width="28" height="40" rx="2" />
+            <path d="M12 14 L28 14" />
+            <path d="M12 22 L28 22" />
+            <path d="M12 30 L22 30" />
+            <circle cx="28" cy="34" r="3" fill="currentColor" stroke="none" opacity={0.25} />
           </svg>
 
-          {/* expansion: stable floor line with calm glow */}
-          {positive && (
-            <div className="floor-glow absolute bottom-2 left-1/2 h-px w-16 -translate-x-1/2">
-              <div
-                className="h-full w-full rounded-full"
-                style={{
-                  background: `linear-gradient(90deg, transparent 0%, ${accent} 50%, transparent 100%)`,
-                  opacity: 0.8,
-                  animation: "exit-floor-pulse 3s ease-in-out infinite",
-                }}
-              />
-            </div>
-          )}
-
-          {/* contraction: flickering bid ticker */}
-          {!positive && (
-            <div
-              className="bid-ticker absolute -right-1 top-2 flex flex-col items-end gap-0.5 text-[8px] font-semibold leading-none"
-              style={{ color: accent }}
+          {/* price tag overlapping bottom-right of license */}
+          <svg
+            viewBox="0 0 28 36"
+            className="absolute -right-2 -bottom-1 h-8 w-6"
+            fill="none"
+          >
+            {/* tag body */}
+            <path
+              d="M14 3 L25 12 L25 33 L3 33 L3 12 Z"
+              fill="color-mix(in srgb, var(--paper) 70%, transparent)"
+              stroke={accent}
+              strokeWidth="1.5"
+              strokeLinejoin="round"
+            />
+            {/* hole */}
+            <circle cx="14" cy="12" r="2.5" fill="var(--background)" stroke={accent} strokeWidth="1.2" />
+            {/* string loop */}
+            <path d="M14 9 L14 4" stroke={accent} strokeWidth="1.2" strokeLinecap="round" />
+            {/* dollar text */}
+            <text
+              x="14"
+              y="27"
+              textAnchor="middle"
+              fontSize="6"
+              fontWeight="600"
+              fill={accent}
+              style={{ letterSpacing: "-0.3px" }}
             >
-              <span style={{ animation: "bid-flicker-1 0.55s steps(1) infinite" }}>
-                12.40
-              </span>
-              <span style={{ animation: "bid-flicker-2 0.65s steps(1) infinite" }}>
-                12.55
-              </span>
-              <span style={{ animation: "bid-flicker-3 0.75s steps(1) infinite" }}>
-                12.80
-              </span>
-              <span style={{ animation: "bid-flicker-4 0.85s steps(1) infinite" }}>
-                13.05
-              </span>
-            </div>
-          )}
+              {positive ? "$ $ $ $ $" : "$ $"}
+            </text>
+          </svg>
         </div>
 
-        {/* caption line */}
-        <span
-          className="mt-1 text-[9px] font-medium tracking-wide"
-          style={{ color: accent, opacity: 0.85 }}
-        >
-          {positive ? "low floor" : "crowd-priced"}
-        </span>
+        {/* up / down sparkline */}
+        <div className="relative mt-2 h-6 w-12">
+          <svg
+            viewBox="0 0 48 24"
+            className="h-full w-full"
+            fill="none"
+            stroke={accent}
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <defs>
+              <marker
+                id={`arrow-${state}`}
+                viewBox="0 0 10 10"
+                refX="8"
+                refY="5"
+                markerWidth="5"
+                markerHeight="5"
+                orient="auto"
+              >
+                <path d="M0 0 L10 5 L0 10 L2 5 Z" fill={accent} />
+              </marker>
+            </defs>
+            {positive ? (
+              <path
+                d="M4 18 L16 14 L28 10 L40 6"
+                strokeDasharray="52"
+                strokeDashoffset="52"
+                markerEnd={`url(#arrow-${state})`}
+                opacity={0.9}
+                style={{ animation: "license-sparkline-up 2s ease-out infinite" }}
+              />
+            ) : (
+              <path
+                d="M4 6 L16 10 L28 14 L40 18"
+                strokeDasharray="52"
+                strokeDashoffset="52"
+                markerEnd={`url(#arrow-${state})`}
+                opacity={0.9}
+                style={{ animation: "license-sparkline-down 2s ease-out infinite" }}
+              />
+            )}
+          </svg>
+        </div>
       </div>
 
       <style>{`
-        @keyframes exit-floor-pulse {
-          0%, 100% { opacity: 0.35; transform: scaleX(0.85); }
-          50% { opacity: 0.9; transform: scaleX(1); }
+        @keyframes license-sparkline-up {
+          0%   { stroke-dashoffset: 52; opacity: 0; transform: translateY(2px); }
+          15%  { opacity: 0.9; }
+          70%  { stroke-dashoffset: 0; opacity: 0.9; transform: translateY(-1px); }
+          100% { stroke-dashoffset: 0; opacity: 0; transform: translateY(-2px); }
         }
-        @keyframes bid-flicker-1 {
-          0%, 100% { opacity: 1; }
-          25% { opacity: 0.3; }
-          50% { opacity: 0.8; }
-          75% { opacity: 0.2; }
-        }
-        @keyframes bid-flicker-2 {
-          0%, 100% { opacity: 0.7; }
-          20% { opacity: 0.2; }
-          45% { opacity: 1; }
-          80% { opacity: 0.4; }
-        }
-        @keyframes bid-flicker-3 {
-          0%, 100% { opacity: 0.4; }
-          30% { opacity: 1; }
-          60% { opacity: 0.2; }
-          85% { opacity: 0.9; }
-        }
-        @keyframes bid-flicker-4 {
-          0%, 100% { opacity: 0.9; }
-          15% { opacity: 0.2; }
-          55% { opacity: 0.6; }
-          70% { opacity: 1; }
+        @keyframes license-sparkline-down {
+          0%   { stroke-dashoffset: 52; opacity: 0; transform: translateY(-2px); }
+          15%  { opacity: 0.9; }
+          70%  { stroke-dashoffset: 0; opacity: 0.9; transform: translateY(1px); }
+          100% { stroke-dashoffset: 0; opacity: 0; transform: translateY(2px); }
         }
         @media (prefers-reduced-motion: reduce) {
           .licenses * { animation: none !important; }
