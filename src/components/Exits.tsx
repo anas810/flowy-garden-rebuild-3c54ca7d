@@ -6,7 +6,7 @@ export function Exits({ state }: { state: State }) {
 
   return (
     <div
-      className="exits pointer-events-none absolute right-6 bottom-[12%] w-40 sm:right-16 sm:w-48"
+      className="exits pointer-events-none absolute right-4 bottom-[10%] w-44 sm:right-14 sm:w-52"
       aria-hidden="true"
     >
       <span className="label block text-center text-[10px] text-muted-foreground">
@@ -15,7 +15,7 @@ export function Exits({ state }: { state: State }) {
 
       <div className="relative mt-4 flex flex-col items-center">
         {/* door + tag row */}
-        <div className="relative flex h-20 w-full items-center justify-center">
+        <div className="relative flex h-20 w-full items-start justify-center">
           {/* door */}
           <div
             className="relative h-14 w-10"
@@ -54,13 +54,13 @@ export function Exits({ state }: { state: State }) {
 
           {/* price tag */}
           <div
-            className={`absolute ${positive ? "top-[72px] left-1/2 -translate-x-1/2" : "right-0 top-1/2 -translate-y-1/2"}`}
+            className={`absolute ${positive ? "top-[72px] left-1/2 -translate-x-1/2" : "-right-1 top-1/2 -translate-y-1/2"}`}
           >
             {/* sparkline behind tag */}
             <div className="absolute inset-0 -z-10 flex items-center justify-center">
               <svg
-                viewBox="0 0 64 32"
-                className="h-10 w-20"
+                viewBox="0 0 80 32"
+                className="h-10 w-24"
                 fill="none"
                 stroke={accent}
                 strokeWidth="1.5"
@@ -82,18 +82,18 @@ export function Exits({ state }: { state: State }) {
                 </defs>
                 {positive ? (
                   <path
-                    d="M4 8 L20 14 L36 20 L56 26"
-                    strokeDasharray="60"
-                    strokeDashoffset="60"
+                    d="M4 8 L24 14 L44 20 L68 26"
+                    strokeDasharray="76"
+                    strokeDashoffset="76"
                     markerEnd={`url(#exit-arrow-${state})`}
                     opacity={0.9}
                     style={{ animation: "exit-sparkline-down 2s ease-out infinite" }}
                   />
                 ) : (
                   <path
-                    d="M4 26 L20 20 L36 14 L56 6"
-                    strokeDasharray="60"
-                    strokeDashoffset="60"
+                    d="M4 26 L24 20 L44 14 L68 6"
+                    strokeDasharray="76"
+                    strokeDashoffset="76"
                     markerEnd={`url(#exit-arrow-${state})`}
                     opacity={0.9}
                     style={{ animation: "exit-sparkline-up 2s ease-out infinite" }}
@@ -102,44 +102,85 @@ export function Exits({ state }: { state: State }) {
               </svg>
             </div>
 
-            <svg
-              viewBox="0 0 28 36"
-              className="relative z-10 h-9 w-7"
-              fill="none"
-            >
-              <path
-                d="M14 3 L25 12 L25 33 L3 33 L3 12 Z"
-                fill="color-mix(in srgb, var(--paper) 75%, transparent)"
-                stroke={accent}
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-              <circle
-                cx="14"
-                cy="12"
-                r="2.5"
-                fill="var(--background)"
-                stroke={accent}
-                strokeWidth="1.2"
-              />
-              <path
-                d="M14 9 L14 4"
-                stroke={accent}
-                strokeWidth="1.2"
-                strokeLinecap="round"
-              />
-              <text
-                x="14"
-                y="25"
-                textAnchor="middle"
-                fontSize={positive ? "4.5" : "3.2"}
-                fontWeight="600"
-                fill={accent}
-                style={{ letterSpacing: "-0.2px" }}
+            {positive ? (
+              <svg
+                viewBox="0 0 28 36"
+                className="relative z-10 h-9 w-7"
+                fill="none"
               >
-                {positive ? "cheap" : "set by the crowd."}
-              </text>
-            </svg>
+                <path
+                  d="M14 3 L25 12 L25 33 L3 33 L3 12 Z"
+                  fill="color-mix(in srgb, var(--paper) 75%, transparent)"
+                  stroke={accent}
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <circle
+                  cx="14"
+                  cy="12"
+                  r="2.5"
+                  fill="var(--background)"
+                  stroke={accent}
+                  strokeWidth="1.2"
+                />
+                <path
+                  d="M14 9 L14 4"
+                  stroke={accent}
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                />
+                <text
+                  x="14"
+                  y="25"
+                  textAnchor="middle"
+                  fontSize="5.5"
+                  fontWeight="600"
+                  fill={accent}
+                  style={{ letterSpacing: "-0.2px" }}
+                >
+                  cheap
+                </text>
+              </svg>
+            ) : (
+              <svg
+                viewBox="0 0 44 36"
+                className="relative z-10 h-9 w-11"
+                fill="none"
+              >
+                <path
+                  d="M22 3 L40 12 L40 33 L4 33 L4 12 Z"
+                  fill="color-mix(in srgb, var(--paper) 75%, transparent)"
+                  stroke={accent}
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <circle
+                  cx="22"
+                  cy="12"
+                  r="2.5"
+                  fill="var(--background)"
+                  stroke={accent}
+                  strokeWidth="1.2"
+                />
+                <path
+                  d="M22 9 L22 4"
+                  stroke={accent}
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                />
+                <text
+                  x="22"
+                  y="25"
+                  textAnchor="middle"
+                  fontSize="4.2"
+                  fontWeight="600"
+                  fill={accent}
+                  style={{ letterSpacing: "-0.2px" }}
+                >
+                  set by the crowd.
+                </text>
+              </svg>
+            )}
           </div>
         </div>
       </div>
@@ -152,13 +193,13 @@ export function Exits({ state }: { state: State }) {
           100% { transform: rotateY(0deg); }
         }
         @keyframes exit-sparkline-up {
-          0%   { stroke-dashoffset: 60; opacity: 0; transform: translateY(3px); }
+          0%   { stroke-dashoffset: 76; opacity: 0; transform: translateY(3px); }
           15%  { opacity: 0.9; }
           70%  { stroke-dashoffset: 0; opacity: 0.9; transform: translateY(-1px); }
           100% { stroke-dashoffset: 0; opacity: 0; transform: translateY(-2px); }
         }
         @keyframes exit-sparkline-down {
-          0%   { stroke-dashoffset: 60; opacity: 0; transform: translateY(-3px); }
+          0%   { stroke-dashoffset: 76; opacity: 0; transform: translateY(-3px); }
           15%  { opacity: 0.9; }
           70%  { stroke-dashoffset: 0; opacity: 0.9; transform: translateY(1px); }
           100% { stroke-dashoffset: 0; opacity: 0; transform: translateY(2px); }
