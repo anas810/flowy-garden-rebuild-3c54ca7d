@@ -4,6 +4,7 @@ import { BankCanvas } from "@/components/BankCanvas";
 import { IssuanceRate } from "@/components/IssuanceRate";
 import { FeeRouting } from "@/components/FeeRouting";
 import { Licenses } from "@/components/Licenses";
+import { Exits } from "@/components/Exits";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -145,6 +146,7 @@ function Index() {
             <IssuanceRate state={state} />
             <FeeRouting state={state} />
             <Licenses state={state} />
+            <Exits state={state} />
             <span
               key={state}
               className="label animate-fade-in absolute left-1/2 -translate-x-1/2 text-sm tracking-widest uppercase"
