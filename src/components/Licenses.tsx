@@ -67,9 +67,9 @@ export function Licenses({ state }: { state: State }) {
         </div>
 
         {/* up / down sparkline */}
-        <div className="relative mt-2 h-6 w-10">
+        <div className="relative mt-2 h-6 w-12">
           <svg
-            viewBox="0 0 40 24"
+            viewBox="0 0 48 24"
             className="h-full w-full"
             fill="none"
             stroke={accent}
@@ -77,21 +77,36 @@ export function Licenses({ state }: { state: State }) {
             strokeLinecap="round"
             strokeLinejoin="round"
           >
+            <defs>
+              <marker
+                id={`arrow-${state}`}
+                viewBox="0 0 10 10"
+                refX="8"
+                refY="5"
+                markerWidth="5"
+                markerHeight="5"
+                orient="auto"
+              >
+                <path d="M0 0 L10 5 L0 10 L2 5 Z" fill={accent} />
+              </marker>
+            </defs>
             {positive ? (
               <path
-                d="M4 18 L12 16 L20 10 L28 8 L36 4"
-                strokeDasharray="60"
-                strokeDashoffset="60"
-                opacity={0.8}
-                style={{ animation: "license-sparkline-up 2.4s ease-out infinite" }}
+                d="M4 18 L16 14 L28 10 L40 6"
+                strokeDasharray="52"
+                strokeDashoffset="52"
+                markerEnd={`url(#arrow-${state})`}
+                opacity={0.9}
+                style={{ animation: "license-sparkline-up 2s ease-out infinite" }}
               />
             ) : (
               <path
-                d="M4 6 L12 8 L20 14 L28 16 L36 20"
-                strokeDasharray="60"
-                strokeDashoffset="60"
-                opacity={0.8}
-                style={{ animation: "license-sparkline-down 2.4s ease-out infinite" }}
+                d="M4 6 L16 10 L28 14 L40 18"
+                strokeDasharray="52"
+                strokeDashoffset="52"
+                markerEnd={`url(#arrow-${state})`}
+                opacity={0.9}
+                style={{ animation: "license-sparkline-down 2s ease-out infinite" }}
               />
             )}
           </svg>
@@ -99,13 +114,17 @@ export function Licenses({ state }: { state: State }) {
       </div>
 
       <style>{`
-        @keyframes license-arrow-up {
-          0%, 100% { transform: translateY(0); opacity: 0.5; }
-          50% { transform: translateY(-3px); opacity: 1; }
+        @keyframes license-sparkline-up {
+          0%   { stroke-dashoffset: 52; opacity: 0; transform: translateY(2px); }
+          15%  { opacity: 0.9; }
+          70%  { stroke-dashoffset: 0; opacity: 0.9; transform: translateY(-1px); }
+          100% { stroke-dashoffset: 0; opacity: 0; transform: translateY(-2px); }
         }
-        @keyframes license-arrow-down {
-          0%, 100% { transform: translateY(0); opacity: 0.5; }
-          50% { transform: translateY(3px); opacity: 1; }
+        @keyframes license-sparkline-down {
+          0%   { stroke-dashoffset: 52; opacity: 0; transform: translateY(-2px); }
+          15%  { opacity: 0.9; }
+          70%  { stroke-dashoffset: 0; opacity: 0.9; transform: translateY(1px); }
+          100% { stroke-dashoffset: 0; opacity: 0; transform: translateY(2px); }
         }
         @media (prefers-reduced-motion: reduce) {
           .licenses * { animation: none !important; }
