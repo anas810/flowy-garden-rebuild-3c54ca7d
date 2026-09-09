@@ -146,6 +146,7 @@ function Index() {
             <IssuanceRate state={state} />
             <FeeRouting state={state} />
             <Licenses state={state} />
+            <Exits state={state} />
             <span
               key={state}
               className="label animate-fade-in absolute left-1/2 -translate-x-1/2 text-sm tracking-widest uppercase"
